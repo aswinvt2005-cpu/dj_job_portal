@@ -1,0 +1,52 @@
+###
+POST http://127.0.0.1:8000/api/jobs/
+Content-Type: application/json
+
+{
+    "title": "Python Developer",
+    "company": "ABC Technologies",
+    "location": "Kannur",
+    "salary": 25000,
+    "description": "Python Django Developer",
+    "requirements": "Python, Django, MySQL"
+}
+
+###
+GET http://127.0.0.1:8000/api/jobs/
+
+
+### 
+GET http://127.0.0.1:8000/api/jobs/1/
+
+
+### 
+PUT http://127.0.0.1:8000/api/jobs/1/
+Content-Type: application/json
+
+{
+    "title": "Full Stack Python Developer",
+    "company": "XYZ Technologies",
+    "location": "Kochi",
+    "salary": 35000,
+    "description": "Python Full Stack Developer",
+    "requirements": "Python, Django, MySQL, HTML, CSS"
+}
+
+
+### 
+DELETE http://127.0.0.1:8000/api/jobs/1/
+
+
+### 
+POST http://127.0.0.1:8000/api/applications/
+Content-Type: application/json
+
+{
+    "user_id": 1,
+    "job_id": 1,
+    "resume": "resumes/aswin_resume.pdf"
+}
+
+
+### 
+GET http://127.0.0.1:8000/api/applications/
