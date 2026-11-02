@@ -3,7 +3,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Job, Application
+
 
 
 class JobManager(APIView):
@@ -12,7 +12,7 @@ class JobManager(APIView):
 
         data = request.data
 
-        job = Job.objects.create(
+        job = job.objects.create(
             title=data.get('title'),
             company=data.get('company'),
             location=data.get('location'),
@@ -28,7 +28,7 @@ class JobManager(APIView):
 
     def get(self, request):
 
-        jobs = Job.objects.all()
+        jobs = job.objects.all()
 
         data = []
 
@@ -51,7 +51,7 @@ class JobDetails(APIView):
     def get(self, request, id):
 
         try:
-            job = Job.objects.get(id=id)
+            job = job.objects.get(id=id)
 
             data = {
                 'id': job.id,
@@ -65,7 +65,7 @@ class JobDetails(APIView):
 
             return Response(data)
 
-        except Job.DoesNotExist:
+        except job.DoesNotExist:
             return Response(
                 {'message': 'Job not found'},
                 status=status.HTTP_404_NOT_FOUND
@@ -74,7 +74,7 @@ class JobDetails(APIView):
     def put(self, request, id):
 
         try:
-            job = Job.objects.get(id=id)
+            job = job.objects.get(id=id)
 
             job.title = request.data.get('title', job.title)
             job.company = request.data.get('company', job.company)
@@ -87,7 +87,7 @@ class JobDetails(APIView):
 
             return Response({'message': 'Job updated successfully'})
 
-        except Job.DoesNotExist:
+        except job.DoesNotExist:
             return Response(
                 {'message': 'Job not found'},
                 status=status.HTTP_404_NOT_FOUND
@@ -96,12 +96,12 @@ class JobDetails(APIView):
     def delete(self, request, id):
 
         try:
-            job = Job.objects.get(id=id)
+            job = job.objects.get(id=id)
             job.delete()
 
             return Response({'message': 'Job deleted successfully'})
 
-        except Job.DoesNotExist:
+        except job.DoesNotExist:
             return Response(
                 {'message': 'Job not found'},
                 status=status.HTTP_404_NOT_FOUND
@@ -115,9 +115,9 @@ class ApplicationManager(APIView):
         data = request.data
 
         try:
-            job = Job.objects.get(id=data.get('job_id'))
+            job = job.objects.get(id=data.get('job_id'))
 
-            application = Application.objects.create(
+            application = application.objects.create(
                 user_id=data.get('user_id'),
                 job=job,
                 resume=data.get('resume')
@@ -128,7 +128,7 @@ class ApplicationManager(APIView):
                 'application_id': application.id
             }, status=status.HTTP_201_CREATED)
 
-        except Job.DoesNotExist:
+        except job.DoesNotExist:
             return Response(
                 {'message': 'Job not found'},
                 status=status.HTTP_404_NOT_FOUND
@@ -136,7 +136,7 @@ class ApplicationManager(APIView):
 
     def get(self, request):
 
-        applications = Application.objects.all()
+        applications = application.objects.all()
 
         data = []
 
